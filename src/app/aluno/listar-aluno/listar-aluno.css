@@ -1,0 +1,90 @@
+/* listar-aluno.css */
+
+/* Cores base (use suas variáveis ou substitua pelos valores do esquema enviado) */
+:root {
+  --primary-color: #0d6efd; /* substitua se necessário */
+  --surface-bg: #ffffff;
+  --muted: #6c757d;
+  --table-head-bg: #f5f8ff;
+  --action-hover: #e9f0ff;
+}
+
+.listar-aluno-card {
+  border: 1px solid rgba(0,0,0,0.04);
+  background: var(--surface-bg);
+  box-shadow: 0 1px 2px rgba(16,24,40,0.03);
+  margin: 1rem 0;
+}
+
+.listar-aluno-card .card-header {
+  background: linear-gradient(90deg, rgba(13,110,253,0.06), rgba(13,110,253,0.02));
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+.table-head {
+  background: var(--table-head-bg);
+  color: #012b6b;
+  font-weight: 600;
+}
+
+.table thead th {
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.table td, .table th {
+  padding: 0.75rem 0.9rem;
+  vertical-align: middle;
+  font-size: 0.95rem;
+}
+
+.btn-outline-secondary {
+  color: #475569;
+  border-color: rgba(71,85,105,0.12);
+}
+
+.btn-outline-secondary:hover {
+  background: var(--action-hover);
+  color: #0b3a93;
+  border-color: rgba(13,110,253,0.12);
+}
+
+.btn-outline-danger {
+  color: #b91c1c;
+  border-color: rgba(185,28,28,0.12);
+}
+
+.btn-outline-danger:hover {
+  background: rgba(185,28,28,0.06);
+  color: #7f1d1d;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: rgba(13,110,253,0.02);
+}
+
+@media (max-width: 576px) {
+  .table thead {
+    display: none;
+  }
+  .table tbody td {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+  .table tbody tr {
+    margin-bottom: 0.75rem;
+    display: block;
+    border: 1px solid rgba(0,0,0,0.04);
+    border-radius: 6px;
+    padding: 0.5rem;
+    background: #fff;
+  }
+  .table tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    display: inline-block;
+    width: 140px;
+    color: var(--muted);
+  }
+}

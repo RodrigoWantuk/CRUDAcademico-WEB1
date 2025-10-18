@@ -1,0 +1,45 @@
+<div class="card listar-curso-card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="mb-0">Lista de Cursos</h3>
+    <a class="btn btn-sm btn-primary" routerLink="/cursos/cadastrar">
+      <i class="fas fa-plus"></i> Novo
+    </a>
+  </div>
+
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-striped mb-0 align-middle">
+        <thead class="table-head">
+          <tr>
+            <th>Nome</th>
+            <th>Link</th>
+            <th class="text-center">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let curso of cursos">
+            <td>{{ curso.nome }}</td>
+            <td>
+              <a *ngIf="curso.link" [href]="curso.link" target="_blank" rel="noopener">
+                {{ curso.link }}
+              </a>
+              <span *ngIf="!curso.link" class="text-muted">—</span>
+            </td>
+            <td class="text-center">
+              <a class="btn btn-sm btn-outline-secondary me-1" [routerLink]="['/cursos/editar', curso.id]" title="Editar">
+                <i class="fas fa-edit"></i>
+              </a>
+              <button class="btn btn-sm btn-outline-danger" (click)="remover($event, curso)" title="Excluir">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+
+          <tr *ngIf="cursos.length === 0">
+            <td colspan="3" class="text-center p-3 text-muted">Nenhum curso encontrado.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

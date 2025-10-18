@@ -1,0 +1,58 @@
+<h1>
+  &nbsp; <i class="fa fa-edit" aria-hidden="true"></i>&nbsp;
+  {{ editar ? 'Editar Curso' : 'Cadastrar Curso' }}
+</h1>
+
+<div class="well">
+  <form #formCurso="ngForm" (ngSubmit)="salvar()" novalidate>
+    <div class="form-group mb-3">
+      <label for="nome"><strong>Nome</strong>:</label>
+      <input
+        id="nome"
+        name="nome"
+        type="text"
+        class="form-control"
+        [(ngModel)]="curso.nome"
+        #nome="ngModel"
+        minlength="3"
+        required
+      />
+      <div class="alert alert-danger" *ngIf="nome.errors && (nome.dirty || nome.touched)">
+        <div [hidden]="!nome.errors['required']">Digite o nome do curso.</div>
+        <div [hidden]="!nome.errors['minlength']">O nome deve conter pelo menos 3 caracteres.</div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="link"><strong>Link</strong>:</label>
+      <input
+        id="link"
+        name="link"
+        type="url"
+        class="form-control"
+        [(ngModel)]="curso.link"
+        #link="ngModel"
+        placeholder="https://exemplo.com ou www.exemplo.com"
+        (input)="limparErroLink()"
+      />
+      <div class="alert alert-danger" *ngIf="link.errors && (link.dirty || link.touched)">
+        <div [hidden]="!link.errors['required']">Link é obrigatório.</div>
+        <div [hidden]="!link.errors['pattern'] && !link.errors['url']">Link em formato inválido.</div>
+      </div>
+      <div class="alert alert-danger" *ngIf="erroLinkPersonalizado">
+        {{ erroLinkPersonalizado }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary" [disabled]="!formCurso.form.valid">
+        <i class="fa fa-save" aria-hidden="true"></i>
+        {{ editar ? 'Salvar' : 'Cadastrar' }}
+      </button>
+
+      <a class="btn btn-secondary" [routerLink]="['/cursos']">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
+      </a>
+    </div>
+  </form>
+</div>

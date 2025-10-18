@@ -1,0 +1,18 @@
+.well {
+  background: #fff;
+  padding: 1rem;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(16,24,40,0.02);
+}
+
+.form-group label { font-weight: 600; }
+
+.alert { margin-top: 0.5rem; padding: 0.45rem 0.6rem; font-size: 0.9rem; }
+
+.btn + .btn { margin-left: 0.5rem; }
+
+@media (max-width: 576px) {
+  .row { display: block; }
+  .col-md-6 { width: 100%; margin-bottom: 0.75rem; }
+}

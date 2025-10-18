@@ -1,0 +1,107 @@
+<h1>
+  &nbsp; <i class="fa fa-edit" aria-hidden="true"></i>&nbsp;
+  {{ editar ? 'Editar Aluno' : 'Cadastrar Aluno' }}
+</h1>
+
+<div class="well">
+  <form #formAluno="ngForm" (ngSubmit)="salvar()" novalidate>
+    <div class="form-group mb-3">
+      <label for="nome"><strong>Nome</strong>:</label>
+      <input
+        id="nome"
+        name="nome"
+        type="text"
+        class="form-control"
+        [(ngModel)]="aluno.nome"
+        #nome="ngModel"
+        minlength="3"
+        required
+      />
+      <div class="alert alert-danger" *ngIf="nome.errors && (nome.dirty || nome.touched)">
+        <div [hidden]="!nome.errors['required']">Digite o nome do aluno.</div>
+        <div [hidden]="!nome.errors['minlength']">O nome deve conter pelo menos 3 caracteres.</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 form-group mb-3">
+        <label for="cpf"><strong>CPF</strong>:</label>
+        <input
+          id="cpf"
+          name="cpf"
+          type="text"
+          class="form-control"
+          [(ngModel)]="aluno.cpf"
+          #cpf="ngModel"
+          required
+          pattern="^(\d{3}\.\d{3}\.\d{3}-\d{2}|\d{11})$"
+          placeholder="000.000.000-00 ou 00000000000"
+          (blur)="formatarCpf()"
+          (input)="limparErroCpf()"
+        />
+        <div class="alert alert-danger" *ngIf="cpf.errors && (cpf.dirty || cpf.touched)">
+          <div [hidden]="!cpf.errors['required']">CPF é obrigatório.</div>
+          <div [hidden]="!cpf.errors['pattern']">CPF em formato inválido.</div>
+        </div>
+        <div class="alert alert-danger" *ngIf="erroCpfPersonalizado">
+          {{ erroCpfPersonalizado }}
+        </div>
+      </div>
+
+      <div class="col-md-6 form-group mb-3">
+        <label for="email"><strong>E-mail</strong>:</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          class="form-control"
+          [(ngModel)]="aluno.email"
+          #email="ngModel"
+          required
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+          placeholder="exemplo@dominio.com"
+          (input)="limparErroEmail()"
+        />
+        <div class="alert alert-danger" *ngIf="email.errors && (email.dirty || email.touched)">
+          <div [hidden]="!email.errors['required']">E-mail é obrigatório.</div>
+          <div [hidden]="!email.errors['pattern'] && !email.errors['email']">E-mail inválido.</div>
+          <div *ngIf="email.errors['pattern'] || email.errors['email']">Informe um e‑mail no formato exemplo@dominio.com.</div>
+        </div>
+        <div class="alert alert-danger" *ngIf="erroEmailPersonalizado">
+          {{ erroEmailPersonalizado }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="dataNascimento"><strong>Data de Nascimento</strong>:</label>
+      <input
+        id="dataNascimento"
+        name="dataNascimento"
+        type="date"
+        class="form-control"
+        [(ngModel)]="aluno.dataNascimento"
+        #dataNascimento="ngModel"
+        required
+      />
+      <div class="alert alert-danger" *ngIf="dataNascimento.errors && (dataNascimento.dirty || dataNascimento.touched)">
+        <div [hidden]="!dataNascimento.errors['required']">Data de nascimento é obrigatória.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="!formAluno.form.valid"
+      >
+        <i class="fa fa-save" aria-hidden="true"></i>
+        {{ editar ? 'Salvar' : 'Cadastrar' }}
+      </button>
+
+      <a class="btn btn-secondary" [routerLink]="['/alunos']">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
+      </a>
+    </div>
+  </form>
+</div>
